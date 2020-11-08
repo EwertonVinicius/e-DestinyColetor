@@ -1,0 +1,93 @@
+<div class="container">
+
+
+
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" >
+
+
+
+    <div class="p-col-12">
+      <p-panel header="Cadastro">
+        <div class="p-grid">
+          <div class="p-col-12 p-fluid form-group has-danger">
+            <label class="form-control" >Nome</label>
+            <input pInputText type="text" class="form-control" name="name" ngModel required minlength="2" #nome="ngModel" >
+            <div class="cor" *ngIf="nome.hasError('required') && nome.touched">*Informe o nome da empresa</div>
+            <div  class="cor" *ngIf="nome.hasError('minlength' && nome.touched)">*O nome deve ser completo</div>
+          </div>
+
+          <div class="p-col-12 p-md-7 p-fluid form-group">
+            <label class="form-control">Nome Fantasia</label>
+            <input pInputText type="text" class="form-control" name="nomefantasia" ngModel required minlength="2" #nomefantasia="ngModel">
+            <div class="cor" *ngIf="nomefantasia.hasError('required')  && nomefantasia.touched" >*Informe o nome fantasia</div>
+            <div class="cor" *ngIf="nomefantasia.hasError('minlength') && nomefantasia.touched">*O nome deve ser completo</div>
+          </div>
+
+          <div class="p-col-12 p-md-2 p-fluid form-group">
+            <label class="form-control">CNPJ</label>
+            <input pInputText type="text" class="form-control" name="cnpj" ngModel required minlength="14" #cnpj="ngModel">
+            <div class="cor" *ngIf="cnpj.hasError('required')&& cnpj.touched">*Informe o CNPJ</div>
+            <div class="cor" *ngIf="cnpj.hasError('minlength')&& cnpj.touched">*minimo 14 caracteres</div>
+          </div>
+
+          <div class="p-col-12 p-md-3 p-fluid form-group">
+            <label class="form-control">Inscrição Estadual</label>
+            <input pInputText type="text" class="form-control" name="insestadual">
+             <!-- ngModel required minlength="2" #insc="ngModel">
+            <div class="cor" *ngIf="insc.hasError('required') && insc.touched">*Informe sua inscrição estadual</div> -->
+
+          </div>
+
+          <div class="p-col-12 p-md-3 p-fluid form-group">
+            <label class="form-control">CEP</label>
+            <p-inputMask mask="99.999-999" class="form-control" name="cep" ngModel required minlength="8" #cep="ngModel"></p-inputMask>
+            <div  class="cor" *ngIf="cep.hasError('required') && cep.touched">*Informe um cep válido</div>
+
+          </div>
+
+          <div class="p-col-12 p-md-3 p-fluid form-group">
+            <label class="form-control">Número</label>
+            <input pInputText type="text" class="form-control" name="num" ngModel required minlength="1" #num="ngModel">
+            <div  class="cor" *ngIf="num.hasError('required') && num.touched">*Informe ao menos um número</div>
+
+          </div>
+
+          <div class="p-col-12 p-md-3 p-fluid form-group">
+            <label class="form-control">E-mail</label>
+            <input pInputText type="text" class="form-control" name="email" ngModel required email #email="ngModel">
+            <div class="cor" *ngIf="email.hasError('required') && email.touched">*Informe um e-mail válido</div>
+
+          </div>
+
+          <div class="p-col-12 p-md-3 p-fluid form-group">
+            <label class="form-control">Telefone</label>
+            <!-- <input pInputText type="text" class="form-control" name="tel" ngModel required minlength="2" #tel="ngModel"> -->
+            <p-inputMask mask="(999) 999999999" class="form-control" name="tel" ngModel required minlength="2" #tel="ngModel"></p-inputMask>
+            <div class="cor" *ngIf="tel.hasError('required') && tel.touched">*Informe um telefone</div>
+
+          </div>
+
+          <div class="p-col-12 p-md-6 p-fluid form-group">
+            <label class="form-control">Senha</label>
+            <input pInputText type="password" placeholder="***********" class="form-control" name="senha" ngModel required minlength="3" #senha="ngModel">
+            <div class="cor" *ngIf="senha.hasError('required')&& senha.touched">*Informe sua senha</div>
+            <div  class="cor" *ngIf="senha.hasError('minlength')&& senha.touched">*Minimo de 3 digitos</div>
+          </div>
+
+          <div class="p-col-12 p-md-6 p-fluid form-group">
+            <label class="form-control">Confirmar Senha</label>
+            <input pInputText type="password" placeholder="***********" class="form-control" name="csenha" ngModel required minlength="3" #csenha="ngModel">
+            <div class="cor" *ngIf="csenha.hasError('required') && csenha.touched">*Confirme sua senha</div>
+            <div class="cor" *ngIf="csenha.hasError('minlength') && csenha.touched">*Minimo de 3 digitos</div>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+    <div class="p-col-12 ">
+      <button class="p-button-success p-mr-3" pButton type="submit" label="Cadastrar" [disabled] ="!usuarioForm.valid"></button>
+      <button routerLink="/login" pButton label="Voltar" class="p-button-raised p-button-secondary"></button>
+
+    </div>
+  </form>
+
+</div>

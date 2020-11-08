@@ -1,0 +1,142 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 97vh;
+  background-color: #cfffc7;
+}
+
+.content {
+  background-color: #fff;
+  border-radius: 15px;
+  width: 970px;
+  height: 60%;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.content::before {
+  content: "";
+  position: absolute;
+  background-color: #58af9b;
+  width: 40%;
+  height: 100%;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  left: 0;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+
+}
+
+.title-primary {
+  color: #fff;
+}
+.title-second {
+  color: #58af9b;
+}
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+.description-primary {
+  color: #fff;
+}
+.description-second {
+  color: #7f8c8d;
+}
+
+.btn {
+  border-radius: 15px;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 10px;
+  padding: 10px 50px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 150px;
+  align-self: center;
+  border: none;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: transparent;
+  border: 1px solid #fff;
+  transition: background-color .5s;
+}
+.btn-primary:hover {
+  background-color: #fff;
+  color: #58af9b;
+}
+
+.btn-second {
+  background-color: #58af9b;
+  border: 1px solid #58af9b;
+  transition: background-color .5s;
+}
+.btn-second:hover {
+  background-color: #fff;
+  border: 1px solid #58af9b;
+  color: #58af9b;
+}
+
+.first-content {
+  display: flex;
+}
+.first-content .second-column {
+  z-index: 11;
+}
+.first-column {
+  text-align: center;
+  width: 40%;
+  z-index: 10;
+}
+.second-column {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+}
+.form input {
+  height: 45px;
+  width: 100%;
+  border: none;
+  background-color: #ecf0f1;
+}
+
+.label-input {
+  background-color: #ecf0f1;
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+
+.icon-modify {
+  color: #7f8c8d;
+  padding: 0 5px;
+}
+
+.btn-primary a{
+color: #fff;
+background-color: transparent;
+transition: background-color .5s;
+text-decoration: none;
+}
+
+.btn-primary:hover a{
+background-color: #fff;
+color: #58af9b;
+}

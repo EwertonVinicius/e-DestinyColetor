@@ -1,0 +1,21 @@
+.b{
+margin: 10px;
+}
+
+.altura{
+height: 30px;
+}
+
+.a{
+background-color: #fff  !important;
+}
+
+.space{
+z-index: 9999;
+width: 590px;
+}
+
+.larg{
+
+  width: 100px !important;
+}
