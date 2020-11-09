@@ -34,8 +34,8 @@
           ngModel required #senha>
         </label>
         <!-- <button class="btn btn-second">Logar</button> -->
-        <button pButton type="submit" label="Login" [disabled]="!f.valid"
-          (click)="login(usuario.value, senha.value)" class="btn btn-second" ></button>
+        <button  class="btn btn-second" pButton type="submit" label="Login" [disabled]="!f.valid"
+          (click)="login(usuario.value, senha.value); senha.value='';" ></button>
       </form>
     </div>
   </div>

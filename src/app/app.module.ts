@@ -33,15 +33,19 @@ import { SegurancaModule } from './seguranca/seguranca-module';
 import { ErrorHandlerService } from './seguranca/error-handler.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { NaoAutorizadoComponent } from './nao-autorizado.component';
+import { AuthGuard } from './seguranca/auth.guard';
 
 
 
 
 const rotas: Routes = [
-  { path: 'gerenciar', component: GerenciarColetaComponent },
-  { path: 'nova', component: ListaColetaComponent },
-  { path: 'novoColetor', component: CadastroComponent },
-  { path: 'login', component: LoginComponent }
+  { path: '', redirectTo:  'login', pathMatch: 'full' },
+  { path: 'gerenciar', component: GerenciarColetaComponent, canActivate: [AuthGuard] },
+  { path: 'nova', component: ListaColetaComponent, canActivate: [AuthGuard] },
+  { path: 'novoColetor', component: CadastroComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'nao-autorizado', component: NaoAutorizadoComponent },
   
 
 
@@ -89,7 +93,7 @@ const rotas: Routes = [
 
 
   ],
-  providers: [AuthService, HttpClient, JwtHelperService, JwtModule, MessageService],
+  providers: [AuthService, HttpClient, JwtHelperService, JwtModule, MessageService, ErrorHandlerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

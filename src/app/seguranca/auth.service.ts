@@ -9,6 +9,7 @@ export class AuthService {
 
   oauthTokenUrl = 'http://localhost:8080/oauth/token';
   jwtPayload: any;
+  tokensRevokeUrl = 'http://localhost:8080/tokens/revoke';
 
   constructor(
     private http: HttpClient,
@@ -25,7 +26,7 @@ export class AuthService {
 
     const body = `client=angular&username=${usuario}&password=${senha}&grant_type=password`;
 
-    return this.http.post(this.oauthTokenUrl, body, { headers })
+    return this.http.post(this.oauthTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then(response => {
         console.log(response);
@@ -68,9 +69,13 @@ export class AuthService {
 
     limparAccessToken() {
       localStorage.removeItem('token');
-      this.jwtPayload = null;
+      this.jwtPayload = null;   
+    }
 
-      
+    isAccessTokenInvalido() {
+      const token = localStorage.getItem('token');
+  
+      return !token || this.jwtHelper.isTokenExpired(token);
     }
       private armazenarToken(token: string) {
         this.jwtPayload = this.jwtHelper.decodeToken(token);
@@ -82,5 +87,12 @@ export class AuthService {
         if (token) {
           this.armazenarToken(token);
         }
-  }
+      }
+      logout() {
+        return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
+          .toPromise()
+          .then(() => {
+            this.limparAccessToken();
+          });
+      }
 }

@@ -10,8 +10,14 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 import { LoginComponent } from './login.component';
 import { SegurancaRoutingModule } from './seguranca-routing-module';
-import { LogoutService } from './logout.service';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MoneyHttpInterceptor } from './money-http-interceptor';
+import { AuthGuard } from './auth.guard';
+
+export function tokenGetter(): string {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   imports: [
@@ -23,15 +29,25 @@ import { LogoutService } from './logout.service';
 
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return '';
-        }
+        tokenGetter,
+        allowedDomains: ['localhost:8080'],
+        disallowedRoutes: ['http://localhost:8080/oauth/token']
       }
     }),
 
     SegurancaRoutingModule
   ],
   declarations: [LoginComponent],
-   providers: [LogoutService]
+  providers: [
+    JwtHelperService,
+  
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MoneyHttpInterceptor,
+      multi: true
+    },
+    AuthGuard
+  
+  ] 
 })
 export class SegurancaModule { }

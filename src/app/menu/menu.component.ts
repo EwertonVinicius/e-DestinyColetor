@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../seguranca/auth.service';
-import { LogoutService } from '../seguranca/logout.service';
+
 // import { ToastyConfig } from 'ng2-toasty';
 
 @Component({
@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
   constructor(
     private router: Router,
     public auth: AuthService,
-    private logoutService: LogoutService
+    
   ){}
   // private toastyConfig: ToastyConfig,
   
@@ -32,12 +32,11 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
   logout() {
-    this.logoutService.logout()
+    this.auth.logout()
       .then(() => {
         this.router.navigate(['/login']);
       })
-      .catch(erro => console.log('erro'));
-
+      .catch(erro => console.log(erro));
 }
 
 }

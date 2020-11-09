@@ -13,10 +13,11 @@ export class LoginComponent implements OnInit {
     
     this.auth.login(usuario, senha)
       .then(() => {
-        this.router.navigate(['']);
+        this.router.navigate(['/nova']);
       })
       .catch(erro => {
         console.log('usuário ou senha inválido!');
+        // this.errorHandler.handle(erro);
       });
   }
 
