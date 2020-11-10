@@ -64,8 +64,8 @@
             <tr>
               <td>
                 <span class="p-column-title">Menu</span>
-                <a class="p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-                <button class="p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+                <a class="p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" routerLink="/novoColetor"></a>
+                <button class="p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"  (click)="showError()"></button>
                 <a class="p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Coleta" tooltipPosition="top"></a>
                 <button class="p-mr-1" pButton icon="pi pi-map-marker" pTooltip="Mapa" tooltipPosition="top"></button>
                 <button class="p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
@@ -89,4 +89,4 @@
       </div>
     </div>
   </p-panel>
-</div>
+ </div>

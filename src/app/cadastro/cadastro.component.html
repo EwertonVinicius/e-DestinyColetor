@@ -25,8 +25,9 @@
 
           <div class="p-col-12 p-md-2 p-fluid form-group">
             <label class="form-control">CNPJ</label>
-            <input pInputText type="text" class="form-control" name="cnpj" ngModel required minlength="14" #cnpj="ngModel">
-            <div class="cor" *ngIf="cnpj.hasError('required')&& cnpj.touched">*Informe o CNPJ</div>
+            <!-- <input pInputText type="text" class="form-control" name="cnpj" ngModel required minlength="15" #cnpj="ngModel"> -->
+            <p-inputMask mask="99999999999999" class="form-control" name="cnpj" ngModel required minlength="14" #cnpj="ngModel"></p-inputMask>
+            <div class="cor" *ngIf="cnpj.hasError('required')&& cnpj.touched">*Informe um CNPJ completo!</div>
             <div class="cor" *ngIf="cnpj.hasError('minlength')&& cnpj.touched">*minimo 14 caracteres</div>
           </div>
 
@@ -84,7 +85,7 @@
       </p-panel>
     </div>
     <div class="p-col-12 ">
-      <button class="p-button-success p-mr-3" pButton type="submit" label="Cadastrar" [disabled] ="!usuarioForm.valid"></button>
+      <button (click)="showSuccess()" class="p-button-success p-mr-3" pButton type="submit" label="Cadastrar" [disabled] ="!usuarioForm.valid" ></button>
       <button routerLink="/login" pButton label="Voltar" class="p-button-raised p-button-secondary"></button>
 
     </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { SelectItem } from 'primeng/api';
 
@@ -6,6 +7,7 @@ import { SelectItem } from 'primeng/api';
   selector: 'app-gerenciar-coleta',
   templateUrl: './gerenciar-coleta.component.html',
   styleUrls: ['./gerenciar-coleta.component.css']
+  
 })
 
 
@@ -40,13 +42,30 @@ export class GerenciarColetaComponent implements OnInit {
 
   // MENU DA TABLE - GERENCIAR COLETA
 
+  showSuccess() {
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
+    
+}
+
+showError() {
+  this.messageService.add({severity:'error', summary: 'Mensagem!', detail: 'Excluido com sucesso'});
+}
+
   items: MenuItem[];
 
   status: string[] = ['Em digitação', 'Em andamento', 'Finalizada'];
 
-  constructor(private messageService: MessageService, private primengConfig: PrimeNGConfig) { }
+  constructor(
+    private messageService: MessageService, 
+    private primengConfig: PrimeNGConfig,
+    private title: Title
+    ) { }
+
+
 
   ngOnInit(): void {
+    this.title.setTitle('Gerenciar Coletas')
+
     this.primengConfig.ripple = true;
 
     this.items = [{

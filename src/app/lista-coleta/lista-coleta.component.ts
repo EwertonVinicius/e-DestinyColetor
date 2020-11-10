@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lista-coleta',
@@ -31,9 +33,16 @@ export class ListaColetaComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private messageService: MessageService,
+    private title: Title ) { }
+
+    showSuccess() {
+      this.messageService.add({severity:'success', summary: 'Gravando...', detail: 'Coletas gravadas com sucesso'});
+  }
 
   ngOnInit(): void {
+    this.title.setTitle('Coletas')
   }
 
 }

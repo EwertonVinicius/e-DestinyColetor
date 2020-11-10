@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,17 +35,20 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { NaoAutorizadoComponent } from './nao-autorizado.component';
 import { AuthGuard } from './seguranca/auth.guard';
+import { PaginaNaoEncontradaComponent } from './seguranca/pagina-nao-encontrada.component';
 
 
 
 
 const rotas: Routes = [
-  { path: '', redirectTo:  'login', pathMatch: 'full' },
+  { path: '', redirectTo:  'login', pathMatch: 'full',  },
   { path: 'gerenciar', component: GerenciarColetaComponent, canActivate: [AuthGuard] },
   { path: 'nova', component: ListaColetaComponent, canActivate: [AuthGuard] },
-  { path: 'novoColetor', component: CadastroComponent, canActivate: [AuthGuard] },
+  { path: 'novoColetor', component: CadastroComponent, },
   { path: 'login', component: LoginComponent },
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },
+  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
+  { path: '**', redirectTo:  'pagina-nao-encontrada' }
   
 
 
@@ -58,7 +61,8 @@ const rotas: Routes = [
     ListaColetaComponent,
     MenuComponent,
     GerenciarColetaComponent,
-    CadastroComponent
+    CadastroComponent,
+    PaginaNaoEncontradaComponent
     // LoginComponent
 
   ],
@@ -93,7 +97,7 @@ const rotas: Routes = [
 
 
   ],
-  providers: [AuthService, HttpClient, JwtHelperService, JwtModule, MessageService, ErrorHandlerService],
+  providers: [AuthService, HttpClient, JwtHelperService, JwtModule, MessageService, ErrorHandlerService, Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
