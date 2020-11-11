@@ -38,7 +38,8 @@ export class ListaColetaComponent implements OnInit {
     private title: Title ) { }
 
     showSuccess() {
-      this.messageService.add({severity:'success', summary: 'Gravando...', detail: 'Coletas gravadas com sucesso'});
+      this.messageService.add({severity:'success',  detail: 'Coletas gravadas com sucesso'});
+      // summary: 'Gravando...',
   }
 
   ngOnInit(): void {

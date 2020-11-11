@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { SelectItem } from 'primeng/api';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {Message} from 'primeng/api';
+
 
 @Component({
   selector: 'app-gerenciar-coleta',
   templateUrl: './gerenciar-coleta.component.html',
-  styleUrls: ['./gerenciar-coleta.component.css']
+  styleUrls: ['./gerenciar-coleta.component.css'],
+
+  providers: [ConfirmationService]
   
 })
 
@@ -42,13 +47,35 @@ export class GerenciarColetaComponent implements OnInit {
 
   // MENU DA TABLE - GERENCIAR COLETA
 
+
+msgs: Message[] = [];
+
+  confirm2() {
+    this.confirmationService.confirm({
+        message: 'Deseja realmente excluir essa coleta?',
+        header: 'Confirmação de exclusão',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+            this.msgs = [{severity:'info', summary:'Sim', detail:'Record deleted'}];
+            this.messageService.add({severity:'info', summary:'Confirmado', detail:'Coleta excluida'});
+        },
+        reject: () => {
+            this.msgs = [{severity:'info', summary:'Não', detail:'You have rejected'}];
+            this.messageService.add({severity:'info', summary:'Rejeitado', detail:'Operação cancelada'});
+        }
+    });
+    
+}
+
   showSuccess() {
     this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
     
 }
 
 showError() {
-  this.messageService.add({severity:'error', summary: 'Mensagem!', detail: 'Excluido com sucesso'});
+  this.messageService.add({severity:'error', summary: 'Mensagem!', detail: 'Excluido com sucesso',
+
+});
 }
 
   items: MenuItem[];
@@ -58,7 +85,8 @@ showError() {
   constructor(
     private messageService: MessageService, 
     private primengConfig: PrimeNGConfig,
-    private title: Title
+    private title: Title,
+    private confirmationService: ConfirmationService
     ) { }
 
 

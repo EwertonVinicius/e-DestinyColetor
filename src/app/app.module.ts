@@ -32,10 +32,13 @@ import { CommonModule } from '@angular/common';
 import { SegurancaModule } from './seguranca/seguranca-module';
 import { ErrorHandlerService } from './seguranca/error-handler.service';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { NaoAutorizadoComponent } from './nao-autorizado.component';
 import { AuthGuard } from './seguranca/auth.guard';
 import { PaginaNaoEncontradaComponent } from './seguranca/pagina-nao-encontrada.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+
 
 
 
@@ -44,7 +47,7 @@ const rotas: Routes = [
   { path: '', redirectTo:  'login', pathMatch: 'full',  },
   { path: 'gerenciar', component: GerenciarColetaComponent, canActivate: [AuthGuard] },
   { path: 'nova', component: ListaColetaComponent, canActivate: [AuthGuard] },
-  { path: 'novoColetor', component: CadastroComponent, },
+  { path: 'novoColetor/:codigo', component: CadastroComponent, },
   { path: 'login', component: LoginComponent },
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
@@ -87,7 +90,9 @@ const rotas: Routes = [
     HttpClientModule,
     // ErrorHandlerService,
     SegurancaModule,
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
+  
  
 
 
@@ -97,7 +102,7 @@ const rotas: Routes = [
 
 
   ],
-  providers: [AuthService, HttpClient, JwtHelperService, JwtModule, MessageService, ErrorHandlerService, Title],
+  providers: [AuthService, HttpClient, JwtHelperService, JwtModule, MessageService, ErrorHandlerService, Title, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

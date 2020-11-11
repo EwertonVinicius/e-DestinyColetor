@@ -8,9 +8,13 @@
 
         <!-- <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="date1" [showIcon]="true" inputId="icon" class="altura p-ml-2" style="width: 100px"></p-calendar> -->
         <input class="altura p-mr-2" pInputText type="text" style="width: 100px">
+        <!-- <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"
+          name="vencimentoInicio" ></p-calendar> -->
 
         <label class="dis">até</label>
         <input class="altura p-ml-2" pInputText type="text" style="width: 100px">
+        <!-- <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"
+          name="vencimentoFim" ></p-calendar> -->
         <!-- <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="date2" [showIcon]="true" inputId="icon" class="altura p-ml-2" style="width: 100px"></p-calendar> -->
 
       </div>
@@ -64,8 +68,8 @@
             <tr>
               <td>
                 <span class="p-column-title">Menu</span>
-                <a class="p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" routerLink="/novoColetor"></a>
-                <button class="p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"  (click)="showError()"></button>
+                <a class="p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/novoColetor', lancamento.codigo]"></a>
+                <button class="p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"  (click)="confirm2()"></button>
                 <a class="p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Coleta" tooltipPosition="top"></a>
                 <button class="p-mr-1" pButton icon="pi pi-map-marker" pTooltip="Mapa" tooltipPosition="top"></button>
                 <button class="p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
@@ -89,4 +93,16 @@
       </div>
     </div>
   </p-panel>
- </div>
+  <!-- <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000">
+    
+  </p-confirmDialog> -->
+
+  <p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmacao>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" label="Sim"
+        (click)="confirmacao.accept()"></button>
+      <button type="button" pButton icon="pi pi-times" label="Não"
+        (click)="confirmacao.reject()"></button>
+    </p-footer>
+  </p-confirmDialog>
+  </div>

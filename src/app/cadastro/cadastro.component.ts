@@ -2,6 +2,7 @@
 import { Component, OnInit  } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -19,14 +20,18 @@ export class CadastroComponent implements OnInit   {
 
   constructor(
     private messageService: MessageService,
-    private title: Title ) { }
+    private title: Title,
+    private route: ActivatedRoute ) { }
 
     showSuccess() {
-      this.messageService.add({severity:'success', summary: 'Gravando...', detail: 'Usuário cadastrado com sucesso'});
+      this.messageService.add({severity:'success',  detail: 'Usuário cadastrado com sucesso'});
   }
 
+  // summary: 'Gravando...',
+
   ngOnInit() {
-    this.title.setTitle('Novo Cadastro');
+    this.title.setTitle('Novo Coletor');
+    console.log(this.route.snapshot.params['codigo'])
   }
 
 }
