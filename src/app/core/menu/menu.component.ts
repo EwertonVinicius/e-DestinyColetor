@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../seguranca/auth.service';
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 // import { ToastyConfig } from 'ng2-toasty';
 
@@ -12,21 +12,12 @@ import { AuthService } from '../seguranca/auth.service';
 export class MenuComponent implements OnInit {
 
 
-
-
   constructor(
     private router: Router,
     public auth: AuthService,
     
   ){}
-  // private toastyConfig: ToastyConfig,
-  
-
-
-  // ) { this.toastyConfig.theme = 'bootstrap'; }
-
-
-
+ 
   exibindoMenu = false;
 
   ngOnInit(): void {

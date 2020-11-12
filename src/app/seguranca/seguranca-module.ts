@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 
-import { LoginComponent } from './login.component';
+import { LoginComponent } from '../login/login.component';
 import { SegurancaRoutingModule } from './seguranca-routing-module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';

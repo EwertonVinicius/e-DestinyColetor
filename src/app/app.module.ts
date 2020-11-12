@@ -14,7 +14,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ListaColetaComponent } from './lista-coleta/lista-coleta.component';
 import {SidebarModule} from 'primeng/sidebar';
 import {TabMenuModule} from 'primeng/tabmenu';
-import { MenuComponent } from './menu/menu.component';
+
 import { GerenciarColetaComponent } from './gerenciar-coleta/gerenciar-coleta.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CadastroComponent } from './cadastro/cadastro.component';
@@ -26,52 +26,54 @@ import { CalendarModule } from 'primeng/calendar';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { LoginComponent } from './seguranca/login.component';
+
 import { AuthService } from './seguranca/auth.service';
 import { CommonModule } from '@angular/common';
 import { SegurancaModule } from './seguranca/seguranca-module';
-import { ErrorHandlerService } from './seguranca/error-handler.service';
+import { ErrorHandlerService } from './core/error-handler.service';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { NaoAutorizadoComponent } from './nao-autorizado.component';
+import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 import { AuthGuard } from './seguranca/auth.guard';
-import { PaginaNaoEncontradaComponent } from './seguranca/pagina-nao-encontrada.component';
+import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CoreModule } from './core/core.module';
+import { LoginModule } from './login/login.module';
 
 
 
 
 
 
-const rotas: Routes = [
-  { path: '', redirectTo:  'login', pathMatch: 'full',  },
-  { path: 'gerenciar', component: GerenciarColetaComponent, canActivate: [AuthGuard] },
-  { path: 'nova', component: ListaColetaComponent, canActivate: [AuthGuard] },
-  { path: 'novoColetor/:codigo', component: CadastroComponent, },
-  { path: 'login', component: LoginComponent },
-  { path: 'nao-autorizado', component: NaoAutorizadoComponent },
-  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
-  { path: '**', redirectTo:  'pagina-nao-encontrada' }
-  
 
-
-];
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ListaColetaComponent,
-    MenuComponent,
     GerenciarColetaComponent,
-    CadastroComponent,
-    PaginaNaoEncontradaComponent
-    // LoginComponent
+    CadastroComponent
 
   ],
   imports: [
+
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+
+
+    CoreModule,
+    LoginModule,
+    SegurancaModule,
     AppRoutingModule,
+    PanelModule,
+    FormsModule,
+
+
+
+    BrowserModule,
+    
     ButtonModule,
     TableModule,
     InputTextModule,
@@ -82,10 +84,9 @@ const rotas: Routes = [
     BrowserAnimationsModule,
     SidebarModule,
     TabMenuModule,
-    RouterModule.forRoot(rotas),
+  
     InputMaskModule,
-    PanelModule,
-    FormsModule,
+  
     CalendarModule,
     HttpClientModule,
     // ErrorHandlerService,
@@ -102,7 +103,7 @@ const rotas: Routes = [
 
 
   ],
-  providers: [AuthService, HttpClient, JwtHelperService, JwtModule, MessageService, ErrorHandlerService, Title, ConfirmationService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
