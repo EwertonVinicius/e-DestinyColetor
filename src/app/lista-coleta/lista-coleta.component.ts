@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -35,11 +36,13 @@ export class ListaColetaComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
-    private title: Title ) { }
+    private title: Title,
+    private router : Router ) { }
 
     showSuccess() {
       this.messageService.add({severity:'success',  detail: 'Coletas gravadas com sucesso'});
       // summary: 'Gravando...',
+      this.router.navigate(['\gerenciar']);
   }
 
   ngOnInit(): void {

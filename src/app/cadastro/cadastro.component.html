@@ -14,6 +14,7 @@
             <input pInputText type="text" class="form-control" name="name" ngModel required minlength="2" #nome="ngModel" pTooltip="nome completo" tooltipPosition="top" >
             <div class="cor" *ngIf="nome.hasError('required') && nome.touched">*Informe o nome da empresa</div>
             <div  class="cor" *ngIf="nome.hasError('minlength' && nome.touched)">*O nome deve ser completo</div>
+            <!-- <app-message [control]="name" error="required" text="Confirme a senha do usuário"></app-message> -->
           </div>
 
           <div class="p-col-12 p-md-7 p-fluid form-group">
@@ -82,6 +83,9 @@
             <div class="cor" *ngIf="csenha.hasError('minlength') && csenha.touched">*Minimo de 3 digitos</div>
           </div>
         </div>
+
+       
+        
       </p-panel>
     </div>
     <div class="p-col-12 ">

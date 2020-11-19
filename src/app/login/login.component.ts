@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService,
     private title: Title ) { }
 
-  showError() {
+  Error() {
     this.messageService.add({severity:'error', summary: 'Atenção!', detail: 'Usuário ou senha inválido'});
 }
 
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       })
       .catch(erro => {
         console.log('usuário ou senha inválido!');
-        this.showError();
+        this.Error();
       });
   }
 

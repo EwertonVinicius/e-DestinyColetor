@@ -4,6 +4,8 @@
   align-items: center;
   height: 97vh;
   background-color: #cfffc7;
+  min-height: 600px;
+
 }
 
 .content {
@@ -14,6 +16,7 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
+  min-height: 400px;
 }
 
 .content::before {
@@ -140,3 +143,5 @@ text-decoration: none;
 background-color: #fff;
 color: #58af9b;
 }
+
+
