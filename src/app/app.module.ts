@@ -4,76 +4,52 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ButtonModule} from 'primeng/button';
-import {TableModule} from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
-import {CheckboxModule} from 'primeng/checkbox';
-import {MenuModule} from 'primeng/menu';
+import { CheckboxModule } from 'primeng/checkbox';
+import { MenuModule } from 'primeng/menu';
 import { RippleModule } from 'primeng/ripple';
-import { ListaColetaComponent } from './lista-coleta/lista-coleta.component';
-import {SidebarModule} from 'primeng/sidebar';
-import {TabMenuModule} from 'primeng/tabmenu';
+import { SidebarModule } from 'primeng/sidebar';
+import { TabMenuModule } from 'primeng/tabmenu';
 
-import { GerenciarColetaComponent } from './gerenciar-coleta/gerenciar-coleta.component';
-import { Routes, RouterModule } from '@angular/router';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { InputMaskModule } from 'primeng/inputmask';
-import {PanelModule} from 'primeng/panel';
+import { PanelModule } from 'primeng/panel';
 
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
-import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-
-import { AuthService } from './seguranca/auth.service';
-import { CommonModule } from '@angular/common';
 import { SegurancaModule } from './seguranca/seguranca-module';
-import { ErrorHandlerService } from './core/error-handler.service';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
-import { AuthGuard } from './seguranca/auth.guard';
-import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CoreModule } from './core/core.module';
-import { LoginModule } from './login/login.module';
 
-
-
-
-
-
-
-
+import { ColetasModule } from './coletas/coletas.module';
+import { LoginComponent } from './login/login.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListaColetaComponent,
-    GerenciarColetaComponent,
-    CadastroComponent
-
+    CadastroComponent,
+    LoginComponent
   ],
   imports: [
-
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
 
-
     CoreModule,
-    LoginModule,
     SegurancaModule,
+    ColetasModule,
     AppRoutingModule,
-    PanelModule,
+    SharedModule,
+
     FormsModule,
+    PanelModule,
 
 
-
-    BrowserModule,
-    
     ButtonModule,
     TableModule,
     InputTextModule,
@@ -84,25 +60,8 @@ import { LoginModule } from './login/login.module';
     BrowserAnimationsModule,
     SidebarModule,
     TabMenuModule,
-  
-    InputMaskModule,
-  
     CalendarModule,
-    HttpClientModule,
-    // ErrorHandlerService,
-    SegurancaModule,
-    ToastModule,
-    ConfirmDialogModule
-  
-  
- 
-
-
-
-
-
-
-
+    InputMaskModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
@@ -11,6 +11,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from '../seguranca/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { ViaCepService } from './via-cep.service';
+import { Title } from '@angular/platform-browser';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
 
@@ -18,7 +21,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     CommonModule,
     RouterModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule,
   ],
   declarations: [
     MenuComponent,
@@ -28,12 +32,18 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
   exports: [
     MenuComponent,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule
   ],
   providers: [
     ErrorHandlerService,
     MessageService,
     ConfirmationService,
+    ViaCepService,
+
+    Title,
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+
     AuthService,
     HttpClient,
     JwtHelperService,

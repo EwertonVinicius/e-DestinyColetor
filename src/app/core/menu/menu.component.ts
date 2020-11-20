@@ -15,19 +15,19 @@ export class MenuComponent implements OnInit {
   constructor(
     private router: Router,
     public auth: AuthService,
-    
-  ){}
- 
+  ) { }
+
   exibindoMenu = false;
 
   ngOnInit(): void {
   }
-  logout() {
+
+  logout(): void {
     this.auth.logout()
       .then(() => {
         this.router.navigate(['/login']);
       })
       .catch(erro => console.log(erro));
-}
+  }
 
 }

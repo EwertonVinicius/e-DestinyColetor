@@ -3,9 +3,11 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-message',
-  templateUrl: ` <small *ngIf="temErro()" class="p-invalid">{{ text }}</small>
+  template: `
+    <small *ngIf="temErro()" class="p-invalid">{{ text }}</small>
   `,
-  styleUrls: []
+  styles: [
+  ]
 })
 export class MessageComponent implements OnInit {
 
@@ -15,12 +17,11 @@ export class MessageComponent implements OnInit {
   @Input() control: FormControl;
   @Input() text: string;
 
-
-
   ngOnInit(): void {
   }
+
   temErro(): boolean {
     return this.control.hasError(this.error) && this.control.dirty;
-
   }
+
 }

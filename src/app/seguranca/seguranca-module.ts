@@ -7,8 +7,6 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
-
-import { LoginComponent } from '../login/login.component';
 import { SegurancaRoutingModule } from './seguranca-routing-module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -37,17 +35,17 @@ export function tokenGetter(): string {
 
     SegurancaRoutingModule
   ],
-  declarations: [LoginComponent],
+  declarations: [],
   providers: [
     JwtHelperService,
-  
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MoneyHttpInterceptor,
       multi: true
     },
     AuthGuard
-  
-  ] 
+
+  ]
 })
 export class SegurancaModule { }

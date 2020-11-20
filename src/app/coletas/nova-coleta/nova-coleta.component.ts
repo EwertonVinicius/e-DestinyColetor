@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-lista-coleta',
-  templateUrl: './lista-coleta.component.html',
-  styleUrls: ['./lista-coleta.component.css']
+  selector: 'app-nova-coleta',
+  templateUrl: './nova-coleta.component.html',
+  styleUrls: ['./nova-coleta.component.css']
 })
-export class ListaColetaComponent implements OnInit {
+export class NovaColetaComponent implements OnInit {
 
   lancamentos = [
     {
@@ -37,16 +37,18 @@ export class ListaColetaComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private title: Title,
-    private router : Router ) { }
+    private router: Router
+  ) { }
 
-    showSuccess() {
-      this.messageService.add({severity:'success',  detail: 'Coletas gravadas com sucesso'});
-      // summary: 'Gravando...',
-      this.router.navigate(['\gerenciar']);
+  showSuccess(): void {
+    this.messageService.add({ severity: 'success', detail: 'Coletas gravadas com sucesso' });
+    // summary: 'Gravando...',
+    this.router.navigate(['\gerenciar']);
   }
 
   ngOnInit(): void {
-    this.title.setTitle('Coletas')
+    this.title.setTitle('Coletas');
   }
+
 
 }

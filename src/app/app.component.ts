@@ -5,18 +5,14 @@ import { Router } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
-  
+
 })
 export class AppComponent {
 
+  constructor(private router: Router) { }
 
+  mostrandoNavbar(): boolean {
+    return this.router.url !== '/login' && this.router.url !== '/novoColetor';
+  }
 
-
-
-  
-
-  constructor(     private router: Router   ) {}
-
-  mostrandoNavbar() {     return this.router.url !== '/login';}
-  
 }

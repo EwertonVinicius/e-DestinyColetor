@@ -1,98 +1,128 @@
 <div class="container">
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" autocomplete="off">
+    <div class="p-grid body p-pt-4">
+      <div class="p-col-12">
+        <p-panel header="Novo coletor">
+          <div class="p-grid">
+            <div class="form-group p-col-12 p-md-6 p-fluid">
+              <span class="p-float-label">
+                <input id="inputRazaoSocial" pInputText type="text" name="razaoSocial" [(ngModel)]="coletor.razaoSocial"
+                  #razaoSocial="ngModel" required minlength="3" maxlength="255">
+                <label for="inputRazaoSocial">Razão social</label>
+              </span>
+              <app-message [control]="razaoSocial" error="required" text="Informe uma razão social">
+              </app-message>
+              <app-message [control]="razaoSocial" error="minlength"
+                text="Mínimo de {{ razaoSocial.errors?.minlength?.requiredLength }} caracteres"></app-message>
+              <app-message [control]="razaoSocial" error="maxlength"
+                text="Máximo de {{ razaoSocial.errors?.maxlength?.requiredLength }} caracteres"></app-message>
+            </div>
 
+            <div class="form-group p-col-12 p-md-6 p-fluid">
+              <span class="p-float-label">
+                <input pInputText type="text" name="nomeFantasia" #nomeFantasia="ngModel"
+                  [(ngModel)]="coletor.nomeFantasia" maxlength="255">
+                <label>Nome Fantasia</label>
+              </span>
+              <app-message [control]="nomeFantasia" error="maxlength"
+                text="Máximo de {{ nomeFantasia.errors?.maxlength?.requiredLength }} caracteres"></app-message>
+            </div>
 
+            <div class="form-group p-col-6 p-md-3 p-fluid">
+              <span class="p-float-label">
+                <p-inputMask mask="99.999.999/9999-99" required name="cnpj" [(ngModel)]="coletor.cnpj" #cnpj="ngModel">
+                </p-inputMask>
+                <label>CNPJ</label>
+              </span>
+              <app-message [control]="cnpj" error="required" text="Informe um CNPJ"></app-message>
+            </div>
 
-  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" >
+            <div class="form-group p-col-6 p-md-3 p-fluid">
+              <span class="p-float-label">
+                <p-inputMask mask="999.99999-99" name="inscricaoEstadual" [(ngModel)]="coletor.inscricaoEstadual"
+                  #inscricaoEstadual="ngModel">
+                </p-inputMask>
+                <label>Inscrição Estadual</label>
+              </span>
+            </div>
 
+            <div class="form-group p-col-12 p-md-6 p-fluid">
+              <span class="p-float-label">
+                <input pInputText type="text" name="emailColetor" #emailColetor="ngModel" [(ngModel)]="coletor.email"
+                  required email autocomplete="off" />
+                <label>Email</label>
+              </span>
+              <app-message [control]="emailColetor" error="required" text="Informe o e-mail do usuário"></app-message>
+              <app-message [control]="emailColetor" error="email" text="Informe um e-mail válido"></app-message>
+            </div>
 
+            <div class="form-group p-col-6 p-md-3 p-fluid">
+              <span class="p-float-label">
+                <p-inputMask (onBlur)="carregarEnderecoViaCep($event)" mask="99.999-999" required name="cep"
+                  [(ngModel)]="coletor.endereco.cep" #cep="ngModel">
+                </p-inputMask>
+                <label>CEP</label>
+              </span>
+              <app-message [control]="cep" error="required" text="Informe um cep"></app-message>
+              <app-message [control]="cep" error="minlength"
+                text="Mínimo de {{ cep.errors?.minlength?.requiredLength }} caracteres"></app-message>
+            </div>
 
-    <div class="p-col-12">
-      <p-panel header="Cadastro">
-        <div class="p-grid">
-          <div class="p-col-12 p-fluid form-group has-danger">
-            <label class="form-control" >Nome</label>
-            <input pInputText type="text" class="form-control" name="name" ngModel required minlength="2" #nome="ngModel" pTooltip="nome completo" tooltipPosition="top" >
-            <div class="cor" *ngIf="nome.hasError('required') && nome.touched">*Informe o nome da empresa</div>
-            <div  class="cor" *ngIf="nome.hasError('minlength' && nome.touched)">*O nome deve ser completo</div>
-            <!-- <app-message [control]="name" error="required" text="Confirme a senha do usuário"></app-message> -->
+            <div class="form-group p-col-6 p-md-3 p-fluid">
+              <span class="p-float-label">
+                <input pInputText type="text" name="numero" #numero="ngModel" [(ngModel)]="coletor.endereco.numero"
+                  required minlength="1" maxlength="5">
+                <label>Número</label>
+              </span>
+              <app-message [control]="numero" error="required" text="Informe um número"></app-message>
+              <app-message [control]="numero" error="minlength"
+                text="Mínimo de {{ numero.errors?.minlength?.requiredLength }} caracteres"></app-message>
+              <app-message [control]="numero" error="maxlength"
+                text="Máximo de {{ numero.errors?.maxlength?.requiredLength }} caracteres"></app-message>
+            </div>
+
+            <div class="form-group p-col-12 p-md-6 p-fluid">
+              <span class="p-float-label">
+                <input pInputText type="text" name="telefone" #telefone="ngModel" [(ngModel)]="coletor.telefone"
+                  required minlength="11" maxlength="15">
+                <label>Telefone</label>
+              </span>
+              <app-message [control]="telefone" error="required" text="Informe um telefone"></app-message>
+              <app-message [control]="telefone" error="minlength"
+                text="Mínimo de {{ telefone.errors?.minlength?.requiredLength }} caracteres"></app-message>
+              <app-message [control]="telefone" error="maxlength"
+                text="Máximo de {{ telefone.errors?.maxlength?.requiredLength }} caracteres"></app-message>
+            </div>
+
+            <div class="form-group p-col-12 p-md-6 p-fluid">
+              <span class="p-float-label">
+                <input type="password" pInputText name="senhaColetor" #senhaColetor="ngModel"
+                  [(ngModel)]="coletor.senha" required autocomplete="off" />
+                <label>Senha</label>
+              </span>
+              <app-message [control]="senhaColetor" error="required" text="Informe a senha do usuário"></app-message>
+            </div>
+
+            <div class="form-group p-col-12 p-md-6 p-fluid">
+              <span class="p-float-label">
+                <input type="password" pInputText name="confirmarSenha" #confirmaSenha="ngModel"
+                  [(ngModel)]="confirmarSenha" required (keyup)="validaConfirmaSenha($event);" />
+                <label>Confirmar senha</label>
+              </span>
+              <small *ngIf="senhaDiferente  && confirmaSenha.dirty" class="p-invalid">As senhas não coincidem.</small>
+              <app-message [control]="confirmaSenha" error="required" text="Confirme a senha do usuário">
+              </app-message>
+            </div>
           </div>
-
-          <div class="p-col-12 p-md-7 p-fluid form-group">
-            <label class="form-control">Nome Fantasia</label>
-            <input pInputText type="text" class="form-control" name="nomefantasia" ngModel required minlength="2" #nomefantasia="ngModel" pTooltip="Nome Fantasia" tooltipPosition="top">
-            <div class="cor" *ngIf="nomefantasia.hasError('required')  && nomefantasia.touched" >*Informe o nome fantasia</div>
-            <div class="cor" *ngIf="nomefantasia.hasError('minlength') && nomefantasia.touched">*O nome deve ser completo</div>
-          </div>
-
-          <div class="p-col-12 p-md-2 p-fluid form-group">
-            <label class="form-control">CNPJ</label>
-            <!-- <input pInputText type="text" class="form-control" name="cnpj" ngModel required minlength="15" #cnpj="ngModel"> -->
-            <p-inputMask mask="99999999999999" class="form-control" name="cnpj" ngModel required minlength="14" #cnpj="ngModel" pTooltip="Informe seu CNPJ" tooltipPosition="top"></p-inputMask>
-            <div class="cor" *ngIf="cnpj.hasError('required')&& cnpj.touched">*Informe um CNPJ completo!</div>
-            <div class="cor" *ngIf="cnpj.hasError('minlength')&& cnpj.touched">*minimo 14 caracteres</div>
-          </div>
-
-          <div class="p-col-12 p-md-3 p-fluid form-group">
-            <label class="form-control">Inscrição Estadual</label>
-            <input pInputText type="text" class="form-control" name="insestadual" pTooltip="Inscrição Estadual" tooltipPosition="top">
-             <!-- ngModel required minlength="2" #insc="ngModel">
-            <div class="cor" *ngIf="insc.hasError('required') && insc.touched">*Informe sua inscrição estadual</div> -->
-
-          </div>
-
-          <div class="p-col-12 p-md-3 p-fluid form-group">
-            <label class="form-control">CEP</label>
-            <p-inputMask mask="99.999-999" class="form-control" name="cep" ngModel required minlength="8" #cep="ngModel" pTooltip="Informe seu cep" tooltipPosition="top"></p-inputMask>
-            <div  class="cor" *ngIf="cep.hasError('required') && cep.touched">*Informe um cep válido</div>
-
-          </div>
-
-          <div class="p-col-12 p-md-3 p-fluid form-group">
-            <label class="form-control">Número</label>
-            <input pInputText type="text" class="form-control" name="num" ngModel required minlength="1" #num="ngModel" pTooltip="Informe um número" tooltipPosition="top">
-            <div  class="cor" *ngIf="num.hasError('required') && num.touched">*Informe ao menos um número</div>
-
-          </div>
-
-          <div class="p-col-12 p-md-3 p-fluid form-group">
-            <label class="form-control">E-mail</label>
-            <input pInputText type="text" class="form-control" name="email" ngModel required email #email="ngModel" pTooltip="Informe seu e-mail" tooltipPosition="top">
-            <div class="cor" *ngIf="email.hasError('required') && email.touched">*Informe um e-mail válido</div>
-
-          </div>
-
-          <div class="p-col-12 p-md-3 p-fluid form-group">
-            <label class="form-control">Telefone</label>
-            <!-- <input pInputText type="text" class="form-control" name="tel" ngModel required minlength="2" #tel="ngModel"> -->
-            <p-inputMask mask="(999) 999999999" class="form-control" name="tel" ngModel required minlength="2" #tel="ngModel" pTooltip="Informe seu telefone" tooltipPosition="top"></p-inputMask>
-            <div class="cor" *ngIf="tel.hasError('required') && tel.touched">*Informe um telefone</div>
-
-          </div>
-
-          <div class="p-col-12 p-md-6 p-fluid form-group">
-            <label class="form-control">Senha</label>
-            <input pInputText type="password" placeholder="***********" class="form-control" name="senha" ngModel required minlength="3" #senha="ngModel" pTooltip="minímo de 3 digitos" tooltipPosition="top">
-            <div class="cor" *ngIf="senha.hasError('required')&& senha.touched">*Informe sua senha</div>
-            <div  class="cor" *ngIf="senha.hasError('minlength')&& senha.touched">*Minimo de 3 digitos</div>
-          </div>
-
-          <div class="p-col-12 p-md-6 p-fluid form-group">
-            <label class="form-control">Confirmar Senha</label>
-            <input pInputText type="password" placeholder="***********" class="form-control" name="csenha" ngModel required minlength="3" #csenha="ngModel" pTooltip="Confirme sua senha" tooltipPosition="top">
-            <div class="cor" *ngIf="csenha.hasError('required') && csenha.touched">*Confirme sua senha</div>
-            <div class="cor" *ngIf="csenha.hasError('minlength') && csenha.touched">*Minimo de 3 digitos</div>
-          </div>
-        </div>
-
-       
-        
-      </p-panel>
+        </p-panel>
+      </div>
     </div>
-    <div class="p-col-12 ">
-      <button (click)="showSuccess()" class="p-button-success p-mr-3" pButton type="submit" label="Cadastrar" [disabled] ="!usuarioForm.valid" pTooltip="Salvar" tooltipPosition="top"></button>
-      <button routerLink="/login" pButton label="Voltar" class="p-button-raised p-button-secondary"></button>
 
+
+    <div class="p-col-12 ">
+      <button class="p-button-success p-mr-3" pButton type="submit" label="Cadastrar" [disabled]="!usuarioForm.valid"
+        pTooltip="Salvar" tooltipPosition="top"></button>
+      <button routerLink="/login" pButton label="Voltar" class="p-button-raised p-button-secondary"></button>
     </div>
   </form>
-
 </div>

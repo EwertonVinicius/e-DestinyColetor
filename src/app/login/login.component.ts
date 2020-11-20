@@ -12,29 +12,26 @@ import { AuthService } from '../seguranca/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth: AuthService,
+  constructor(
+    private auth: AuthService,
     private router: Router,
     private messageService: MessageService,
-    private title: Title ) { }
+    private title: Title
+  ) { }
 
-  Error() {
-    this.messageService.add({severity:'error', summary: 'Atenção!', detail: 'Usuário ou senha inválido'});
-}
+  login(usuario: string, senha: string): void {
 
-  login(usuario: string, senha: string){
-    
     this.auth.login(usuario, senha)
       .then(() => {
         this.router.navigate(['/nova']);
       })
       .catch(erro => {
-        console.log('usuário ou senha inválido!');
-        this.Error();
+        this.messageService.add({ severity: 'error', summary: 'Atenção!', detail: 'Usuário ou senha inválido' });
       });
   }
 
   ngOnInit(): void {
-    this.title.setTitle('e-Destiny')
+    this.title.setTitle('e-Destiny');
   }
 
 }
