@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { ColetorService } from '../core/coletor.service';
 import { ErrorHandlerService } from '../core/error-handler.service';
 import { Coletor } from '../core/model';
 import { ViaCepService } from '../core/via-cep.service';
@@ -21,10 +22,11 @@ export class CadastroComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
+    private coletorService: ColetorService,
     private viaCepService: ViaCepService,
     private errorHandler: ErrorHandlerService,
     private title: Title,
-
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,19 @@ export class CadastroComponent implements OnInit {
   }
 
   salvar(form: NgForm): void {
+    this.coletor.cnpj = this.removerCaracterEspecial(this.coletor.cnpj);
+    this.coletor.endereco.cep = this.removerCaracterEspecial(this.coletor.endereco.cep);
 
+    if (this.coletor.inscricaoEstadual) {
+      this.coletor.inscricaoEstadual = this.removerCaracterEspecial(this.coletor.inscricaoEstadual);
+    }
+
+    this.coletorService.adicionar(this.coletor)
+      .then(response => {
+        this.messageService.add({ severity: 'success', summary: 'Conta criada com sucesso!' });
+        this.coletor = response;
+        this.router.navigate(['/login']);
+      }).catch(erro => this.errorHandler.handle(erro));
   }
 
   carregarEnderecoViaCep(event: any): void {

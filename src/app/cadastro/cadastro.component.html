@@ -120,9 +120,10 @@
 
 
     <div class="p-col-12 ">
-      <button class="p-button-success p-mr-3" pButton type="submit" label="Cadastrar" [disabled]="!usuarioForm.valid"
+      <button class="p-button-raised p-mr-3" pButton type="submit" label="Cadastrar" [disabled]="usuarioForm.invalid"
         pTooltip="Salvar" tooltipPosition="top"></button>
-      <button routerLink="/login" pButton label="Voltar" class="p-button-raised p-button-secondary"></button>
+      <button routerLink="/login" type="button" pButton label="Voltar" class="p-button-raised p-button-secondary"><a
+          href="javascript:;"></a></button>
     </div>
   </form>
 </div>

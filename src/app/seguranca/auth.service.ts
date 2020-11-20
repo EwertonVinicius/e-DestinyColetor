@@ -14,10 +14,10 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService
-    
-    ) {
-      this.carregarToken();
-     }
+
+  ) {
+    this.carregarToken();
+  }
 
   login(usuario: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
@@ -40,59 +40,62 @@ export class AuthService {
         }
 
         return Promise.reject(response);
-        
+
       });
-    }
+  }
 
-    obterNovoAccessToken(): Promise<void> {
-      const headers = new HttpHeaders()
-        .append('Content-Type', 'application/x-www-form-urlencoded')
-        .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
-  
-      const body = 'grant_type=refresh_token';
-  
-      return this.http.post(this.oauthTokenUrl, body,
-          { headers, withCredentials: true })
-        .toPromise()
-        .then(response => {
-          this.armazenarToken(response['access_token']);
-  
-          console.log('Novo access token criado!');
-  
-          return Promise.resolve(null);
-        })
-        .catch(response => {
-          console.error('Erro ao renovar token.', response);
-          return Promise.resolve(null);
-        });
-    }
+  obterNovoAccessToken(): Promise<void> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
-    limparAccessToken() {
-      localStorage.removeItem('token');
-      this.jwtPayload = null;   
-    }
+    const body = 'grant_type=refresh_token';
 
-    isAccessTokenInvalido() {
-      const token = localStorage.getItem('token');
-  
-      return !token || this.jwtHelper.isTokenExpired(token);
+    return this.http.post(this.oauthTokenUrl, body,
+      { headers, withCredentials: true })
+      .toPromise()
+      .then(response => {
+        this.armazenarToken(response['access_token']);
+
+        console.log('Novo access token criado!');
+
+        return Promise.resolve(null);
+      })
+      .catch(response => {
+        console.error('Erro ao renovar token.', response);
+        return Promise.resolve(null);
+      });
+  }
+
+  limparAccessToken(): void {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
+  }
+
+  isAccessTokenInvalido(): boolean {
+    const token = localStorage.getItem('token');
+
+    return !token || this.jwtHelper.isTokenExpired(token);
+  }
+
+  private armazenarToken(token: string): void {
+    this.jwtPayload = this.jwtHelper.decodeToken(token);
+    localStorage.setItem('token', token);
+  }
+
+  private carregarToken(): void {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.armazenarToken(token);
     }
-      private armazenarToken(token: string) {
-        this.jwtPayload = this.jwtHelper.decodeToken(token);
-        localStorage.setItem('token', token);
-      }
-      private carregarToken() {
-        const token = localStorage.getItem('token');
-    
-        if (token) {
-          this.armazenarToken(token);
-        }
-      }
-      logout() {
-        return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
-          .toPromise()
-          .then(() => {
-            this.limparAccessToken();
-          });
-      }
+  }
+
+  logout() {
+    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
+      .toPromise()
+      .then(() => {
+        this.limparAccessToken();
+      });
+  }
 }

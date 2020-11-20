@@ -10,7 +10,6 @@ export class ViaCepService {
     private http: HttpClient
   ) { }
 
-
   consultaEnderecoViaCep(cep: string): Promise<any> {
     return this.http.get(`https://viacep.com.br/ws/${cep}/json/`).toPromise();
   }
