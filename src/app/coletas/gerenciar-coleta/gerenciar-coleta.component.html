@@ -1,108 +1,84 @@
 <div class="container">
-
-  <p-panel header="Gerenciamento de Coletas" class="p-mr-3">
-
-    <div class="p-grid p-fluid">
-      <div class="p-field p-col-12 p-md-6 p-lg-3 p-d-md-inline">
-        <label style="display: block">Data Prevista</label>
-
-        <!-- <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="date1" [showIcon]="true" inputId="icon" class="altura p-ml-2" style="width: 100px"></p-calendar> -->
-        <input class="altura p-mr-2" pInputText type="text" style="width: 100px">
-        <!-- <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"
-          name="vencimentoInicio" ></p-calendar> -->
-
-        <label class="dis">até</label>
-        <input class="altura p-ml-2" pInputText type="text" style="width: 100px">
-        <!-- <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"
-          name="vencimentoFim" ></p-calendar> -->
-        <!-- <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="date2" [showIcon]="true" inputId="icon" class="altura p-ml-2" style="width: 100px"></p-calendar> -->
-
-      </div>
-
-      <div class="p-field p-grid">
-        <label for="status" class="p-col-12">Status</label>
-        <div class="p-formgroup-inline">
-          <div *ngFor="let item of status" class="p-field-checkbox">
-            <p-checkbox name="groupStatus" value="item" [value]="item" [(ngModel)]="selectedCategories"
-              [inputId]="item"></p-checkbox>
-            <label [for]="item">{{item}}</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="p-col-12 p-md-12 p-lg-12">
-
-        <div class="p-grid">
-
-          <div class="p-col-12 p-md-3 p-lg-3">
-            <button pButton type="button" label="Pesquisar" class="p-button-raised p-button-primary"></button>
-          </div>
-
-          <div class="p-col-12 p-md-3 p-lg-3">
-            <button pButton type="button" label="Limpar" class="p-button-raised p-button-secondary"></button>
-          </div>
-
-          <div class="p-col-12 p-md-3 p-lg-3">
-            <button pButton type="button" label="Nova Coleta" class="p-button-raised p-button-success"></button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </p-panel>
-
-  <p-panel header="Resultados da Pesquisa">
-    <div class="p-grid">
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="pesquisar()">
+    <div class="p-grid body p-pt-4">
       <div class="p-col-12">
-        <p-table [value]="lancamentos" [paginator]="true" [rows]="2" [responsive]="true">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>Ações</th>
-              <th class="space"> Coletor</th>
-              <th class="col-data-header b">Data Prevista</th>
-              <th class="col-valor-header b">Situação</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-lancamento>
-            <tr>
-              <td>
-                <span class="p-column-title">Menu</span>
-                <a class="p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/novoColetor', lancamento.codigo]"></a>
-                <button class="p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"  (click)="confirm2()"></button>
-                <a class="p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Coleta" tooltipPosition="top"></a>
-                <button class="p-mr-1" pButton icon="pi pi-map-marker" pTooltip="Mapa" tooltipPosition="top"></button>
-                <button class="p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
-                  tooltipPosition="top"></button>
-              </td>
-              <td>
-                <span class="p-column-title">Pessoa</span>
-                {{ lancamento.pessoa }}
-              </td>
-              <td class="col-data">
-                <span class="p-column-title">Pagamento</span>
-                {{ lancamento.dataPagamento }}
-              </td>
-              <td class="col-valor">
-                <span class="p-column-title">Valor</span>
-                <span [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{ lancamento.valor }}</span>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+        <p-panel header="Filtros">
+          <div class="p-grid">
+            <div class="p-col-12 p-md-6 p-fluid">
+              <label class="p-col-12">Situação</label>
+              <div class="p-formgroup-inline">
+                <div *ngFor="let item of status" class="p-field-checkbox">
+                  <p-checkbox name="groupStatus" value="item" [value]="item" [(ngModel)]="filter.situacao"
+                    [inputId]="item"></p-checkbox>
+                  <label [for]="item">{{item}}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-col-6">
+              <label style="display: block">Data Prevista</label>
+              <p-calendar name="dataInicio" [(ngModel)]="filter.dataInicio"></p-calendar>
+              <label> até </label>
+              <p-calendar name="dataFim" [(ngModel)]="filter.dataFim"></p-calendar>
+            </div>
+
+            <div class="p-col-12">
+              <button pButton type="submit" label="Pesquisar" class="p-button-raised p-button-primary p-mr-2"></button>
+              <button pButton type="button" label="Limpar Filtro" (click)="limparFiltro()"
+                class="p-button-raised p-button-secondary p-mr-2"></button>
+            </div>
+          </div>
+        </p-panel>
       </div>
     </div>
-  </p-panel>
-  <!-- <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000">
-    
-  </p-confirmDialog> -->
+  </form>
 
-  <p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmacao>
-    <p-footer>
-      <button type="button" pButton icon="pi pi-check" label="Sim"
-        (click)="confirmacao.accept()"></button>
-      <button type="button" pButton icon="pi pi-times" label="Não"
-        (click)="confirmacao.reject()"></button>
-    </p-footer>
-  </p-confirmDialog>
+  <!-- ======================================================================================================= -->
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-panel header="Resultado da pesquisa">
+        <div class="p-col-12">
+          <p-table styleClass="p-datatable-responsive-demo" [value]="coletas" [responsive]="true" [responsive]="true"
+            [showCurrentPageReport]="true" [paginator]="true" [rows]="filter.itensPorPagina" [lazy]="true"
+            [totalRecords]="totalRegistros" [rowsPerPageOptions]="[5,10,25,50]" (onLazyLoad)="aoMudarPagina($event)"
+            #tabela>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Ações</th>
+                <th>Qtd. Solicitações</th>
+                <th>Data Prevista</th>
+                <th>Situação</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-coleta>
+              <tr>
+                <td>
+                  <a class="p-button-rounded p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+                    [routerLink]="['/nova', coleta.id]"></a>
+                  <button class="p-button-rounded p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir"
+                    tooltipPosition="top" (click)="confirmarExclusao(coleta)"></button>
+                  <a class="p-button-rounded p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Coleta"
+                    tooltipPosition="top"></a>
+                  <button class="p-button-rounded p-mr-1" pButton icon="pi pi-map-marker" pTooltip="Mapa"
+                    tooltipPosition="top"></button>
+                  <button class="p-button-rounded p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
+                    tooltipPosition="top"></button>
+                </td>
+              </tr>
+            </ng-template>
+
+
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td [attr.colspan]="4">
+                  Nenhuma ocorrência encontrada.
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-panel>
+    </div>
   </div>
+</div>

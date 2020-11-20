@@ -8,6 +8,9 @@ import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SharedModule } from '../shared/shared.module';
+import { ColetaRoutingModule } from './coleta-routing.module';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 
@@ -24,11 +27,13 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     SharedModule,
     FormsModule,
+    ColetaRoutingModule,
 
     PanelModule,
     TableModule,
     ConfirmDialogModule,
-
+    CalendarModule,
+    CheckboxModule,
   ]
 })
 export class ColetasModule { }

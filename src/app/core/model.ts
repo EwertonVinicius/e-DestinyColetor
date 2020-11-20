@@ -1,5 +1,3 @@
-import { ClassGetter } from "@angular/compiler/src/output/output_ast";
-
 export class Endereco {
   id: number;
   logradouro: string;
@@ -21,4 +19,39 @@ export class Coletor {
   senha: string;
   telefone: string;
   endereco = new Endereco();
+}
+
+export class Solicitacao {
+  id: number;
+  residuos: Residuo[] = [];
+  dtSolicitacao: Date;
+  coleta: Coleta;
+}
+
+export class Residuo {
+  id: number;
+  descricao: string;
+  quantidade: number;
+  solicitacao: Solicitacao;
+}
+
+export class Coleta {
+  id: number;
+  coletor: Coletor;
+  dtPrevista: Date;
+  solicitacoes: Solicitacao[] = [];
+}
+
+export class ColetaFilter {
+  coletorId: number;
+  dataInicio: Date;
+  dataFim: Date;
+  situacao: string[];
+  pagina = 0;
+  itensPorPagina = 5;
+}
+
+export class SolicitacaoFilter {
+  pagina = 0;
+  itensPorPagina = 5;
 }

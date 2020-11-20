@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Coleta, SolicitacaoFilter } from 'src/app/core/model';
+import { SolicitacaoService } from 'src/app/core/solicitacao.service';
 
 @Component({
   selector: 'app-nova-coleta',
@@ -10,44 +13,41 @@ import { MessageService } from 'primeng/api';
 })
 export class NovaColetaComponent implements OnInit {
 
-  lancamentos = [
-    {
-      tipo: 'Endereco', descricao: 'Rua Rio Japurá, 415 Bl 02 Ap 43', dataVencimento: '3',
-      dataPagamento: '28/10/2020', valor: 'Aberto', pessoa: 'Ewerton'
-    },
-    {
-      tipo: 'Endereco', descricao: 'Rua Rio Jaguaribe, 489 Bl 4A Ap 11', dataVencimento: '5',
-      dataPagamento: '01/11/2020', valor: 'Fechado', pessoa: 'Eugenio'
-    },
-    {
-      tipo: 'Endereco', descricao: 'Rua Agua Mineral, 500', dataVencimento: '1',
-      dataPagamento: '15/11/2020', valor: 'Aberto', pessoa: 'Gustavo'
-    },
-    {
-      tipo: 'Endereco', descricao: 'Rua Lago tingui, 810 Casa 02', dataVencimento: '2',
-      dataPagamento: '30/10/2020', valor: 'Aberto', pessoa: 'Pedro'
-    },
-
-    {
-      tipo: 'Endereco', descricao: 'Rua Lago tingui, 810 Casa 02', dataVencimento: '2',
-      dataPagamento: '30/10/2020', valor: 'Aberto', pessoa: 'Pedro'
-    },
-  ];
+  coleta = new Coleta();
+  solicitacoes = [];
+  filter = new SolicitacaoFilter();
+  totalRegistros = 0;
+  @ViewChild('tabela') grid: { first: number; };
 
   constructor(
     private messageService: MessageService,
+    private solicitacaoService: SolicitacaoService,
+    private errorHandler: ErrorHandlerService,
     private title: Title,
     private router: Router
   ) { }
 
-  showSuccess(): void {
-    this.messageService.add({ severity: 'success', detail: 'Coletas gravadas com sucesso' });
-    // summary: 'Gravando...',
-    this.router.navigate(['\gerenciar']);
+  ngOnInit(): void {
+    this.title.setTitle('Nova coleta');
   }
 
-  ngOnInit(): void {
-    this.title.setTitle('Coletas');
+  pesquisar(pagina = 0): void {
+    this.filter.pagina = pagina;
+
+    this.solicitacaoService.pesquisar(this.filter)
+      .then(resultado => {
+        this.solicitacoes = resultado.solicitacoes;
+        this.totalRegistros = resultado.total;
+
+        if (this.totalRegistros === 0) {
+          this.messageService.add({ severity: 'info', summary: 'Nenhuma ocorrência encontrada.' });
+        }
+      }).catch(erro => this.errorHandler.handle(erro));
+  }
+
+  aoMudarPagina(event: LazyLoadEvent): void {
+    const pagina = event.first / event.rows;
+    this.pesquisar(pagina);
   }
 
 

@@ -12,9 +12,6 @@ import { AuthGuard } from './seguranca/auth.guard';
 const rotas: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full', },
 
-  { path: 'gerenciar', component: GerenciarColetaComponent, canActivate: [AuthGuard] },
-  { path: 'nova', component: NovaColetaComponent, canActivate: [AuthGuard] },
-
   { path: 'novoColetor', component: CadastroComponent, },
 
   { path: 'login', component: LoginComponent },

@@ -14,6 +14,9 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { ViaCepService } from './via-cep.service';
 import { Title } from '@angular/platform-browser';
 import { TooltipModule } from 'primeng/tooltip';
+import { ColetorService } from './coletor.service';
+import { ColetaService } from '../coletas/coleta.service';
+import { SolicitacaoService } from './solicitacao.service';
 
 @NgModule({
 
@@ -40,6 +43,9 @@ import { TooltipModule } from 'primeng/tooltip';
     MessageService,
     ConfirmationService,
     ViaCepService,
+    ColetorService,
+    ColetaService,
+    SolicitacaoService,
 
     Title,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
