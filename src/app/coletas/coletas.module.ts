@@ -11,8 +11,12 @@ import { SharedModule } from '../shared/shared.module';
 import { ColetaRoutingModule } from './coleta-routing.module';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
 
 
+
+import { AgmCoreModule } from '@agm/core';            // @agm/core
+import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 
 @NgModule({
   declarations: [
@@ -34,6 +38,14 @@ import { CheckboxModule } from 'primeng/checkbox';
     ConfirmDialogModule,
     CalendarModule,
     CheckboxModule,
+    DialogModule,
+
+
+
+    AgmCoreModule.forRoot({ // @agm/core
+      apiKey: 'AIzaSyDZJfPgnA3e77_iJxb_cMmTihlapPNYKwk',
+    }),
+    AgmDirectionModule,     // agm-direction
   ]
 })
 export class ColetasModule { }

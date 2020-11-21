@@ -60,3 +60,11 @@ label {
   background-color: white !important;
   color: #7a7a7a !important;
 }
+
+agm-map {
+  height: 300px;
+}
+
+.mydialog {
+  width: 1000px;
+}

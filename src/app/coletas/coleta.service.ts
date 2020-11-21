@@ -69,4 +69,8 @@ export class ColetaService {
   gerarPercurso(id: number): Promise<any> {
     return this.http.get(`${this.url}/gerarPercurso/${id}`).toPromise().then(() => null);
   }
+
+  visualizarPercurso(id: number): Promise<any> {
+    return this.http.get(`${this.url}/visualizarPercurso/${id}`).toPromise();
+  }
 }

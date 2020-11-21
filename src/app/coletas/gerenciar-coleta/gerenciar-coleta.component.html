@@ -1,3 +1,9 @@
+<p-dialog header="Percurso de coleta" [(visible)]="display" styleClass="mydialog">
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
+  </agm-map>
+</p-dialog>
+
 <div class="container">
   <form autocomplete="off" #f="ngForm" (ngSubmit)="pesquisar()">
     <div class="p-grid body p-pt-4">
@@ -58,12 +64,15 @@
                 <td>
                   <a class="p-button-rounded  p-button-success p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar"
                     tooltipPosition="top" [routerLink]="['/nova', coleta.id]"></a>
+
                   <button class="p-button-rounded  p-button-danger p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir"
                     tooltipPosition="top" (click)="confirmarExclusao(coleta)"></button>
+
                   <a class="p-button-rounded p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Percurso"
                     tooltipPosition="top" (click)="gerarPercurso(coleta.id)"></a>
+
                   <button class="p-button-rounded p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
-                    tooltipPosition="top"></button>
+                    tooltipPosition="top" (click)="showDialog(coleta.id)"></button>
                 </td>
 
                 <td> {{ coleta.qtdSoliticoes }}</td>

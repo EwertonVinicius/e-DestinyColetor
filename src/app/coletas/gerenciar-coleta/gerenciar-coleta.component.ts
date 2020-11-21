@@ -20,6 +20,15 @@ export class GerenciarColetaComponent implements OnInit {
 
   status: string[] = ['Em digitação', 'Em andamento', 'Finalizada'];
 
+  lat = -25.4852596;
+  lng = -49.2880072;
+
+  origin: {};
+  destination: {};
+  waypoints = [];
+
+  display = false;
+
   constructor(
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
@@ -85,5 +94,17 @@ export class GerenciarColetaComponent implements OnInit {
     this.coletaService.gerarPercurso(id).then(() => {
       this.messageService.add({ severity: 'success', summary: 'Percurso carregado com sucesso!' });
     }).catch(erro => this.errorHandler.handle(erro));
+  }
+
+
+  showDialog(id: number): void {
+    this.display = true;
+    this.coletaService.visualizarPercurso(id)
+      .then(resultado => {
+        console.log(resultado);
+        this.origin = resultado.origin;
+        this.destination = resultado.destination;
+        this.waypoints = resultado.waypoints;
+      }).catch(erro => this.errorHandler.handle(erro));
   }
 }
