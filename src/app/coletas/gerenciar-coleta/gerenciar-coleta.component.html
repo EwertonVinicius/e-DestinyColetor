@@ -60,8 +60,8 @@
                     tooltipPosition="top" [routerLink]="['/nova', coleta.id]"></a>
                   <button class="p-button-rounded  p-button-danger p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir"
                     tooltipPosition="top" (click)="confirmarExclusao(coleta)"></button>
-                  <a class="p-button-rounded p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Coleta"
-                    tooltipPosition="top"></a>
+                  <a class="p-button-rounded p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Percurso"
+                    tooltipPosition="top" (click)="gerarPercurso(coleta.id)"></a>
                   <button class="p-button-rounded p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
                     tooltipPosition="top"></button>
                 </td>

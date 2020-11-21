@@ -7,6 +7,14 @@ export class Endereco {
   cidade: string;
   estado: string;
   cep: string;
+  longitude: string;
+  latitude: string;
+}
+
+export class Percurso {
+  id: number;
+  coleta: Coleta;
+  dtCriacao: Date;
 }
 
 export class Coletor {
@@ -40,6 +48,7 @@ export class Coleta {
   coletor: Coletor;
   dtPrevistaColeta: Date;
   solicitacoes: Solicitacao[] = [];
+  percurso: Percurso;
 }
 
 export class ColetaFilter {

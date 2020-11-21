@@ -80,6 +80,10 @@ export class GerenciarColetaComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Coleta excluída com sucesso!' });
     }).catch(erro => this.errorHandler.handle(erro));
   }
+
+  gerarPercurso(id: number): void {
+    this.coletaService.gerarPercurso(id).then(() => {
+      this.messageService.add({ severity: 'success', summary: 'Percurso carregado com sucesso!' });
+    }).catch(erro => this.errorHandler.handle(erro));
+  }
 }
-
-

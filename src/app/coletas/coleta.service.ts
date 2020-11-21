@@ -65,4 +65,8 @@ export class ColetaService {
   buscaPorId(id: number): Promise<Coleta> {
     return this.http.get<Coleta>(`${this.url}/${id}`).toPromise();
   }
+
+  gerarPercurso(id: number): Promise<any> {
+    return this.http.get(`${this.url}/gerarPercurso/${id}`).toPromise().then(() => null);
+  }
 }
