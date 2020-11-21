@@ -1,22 +1,27 @@
 <div class="container">
-  <form autocomplete="off" #f="ngForm" (ngSubmit)="pesquisar()">
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
     <div class="p-grid p-mt-5">
       <div class="p-col-12">
-        <p-panel header="Nova Coleta">
+        <p-panel header="{{editando ? 'Edição de' : 'Nova'}} Coleta">
           <div class="p-grid ">
-            <div class="p-col-6">
+            <div class="p-col-12 p-md-3 p-fluid">
               <label style="display: block">Data Prevista</label>
-              <p-calendar name="dtPrevista" [(ngModel)]="coleta.dtPrevista"></p-calendar>
+              <p-calendar name="dtPrevista" dateFormat="dd/mm/yy" [(ngModel)]="coleta.dtPrevistaColeta"
+                #dtPrevista="ngModel" required [inline]="false" [readonlyInput]="false" [showIcon]="false"></p-calendar>
+
+              <app-message [control]="dtPrevista" error="required" text="Informe uma data prevista"></app-message>
             </div>
 
             <div class="p-col-12">
               <p-table styleClass="p-datatable-responsive-demo" [value]="solicitacoes" [responsive]="true"
                 [responsive]="true" [showCurrentPageReport]="true" [paginator]="true" [rows]="filter.itensPorPagina"
                 [lazy]="true" [totalRecords]="totalRegistros" [rowsPerPageOptions]="[5,10,25,50]"
-                (onLazyLoad)="aoMudarPagina($event)" #tabela>
+                (onLazyLoad)="aoMudarPagina($event)" #tabela dataKey="id" [(selection)]="solicitacoesSelecionadas">
                 <ng-template pTemplate="header">
                   <tr>
-                    <th>#</th>
+                    <th>
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
                     <th>Solicitante</th>
                     <th>Endereço</th>
                     <th>Qtd. Residuos</th>
@@ -25,6 +30,21 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-solicitacao>
                   <tr>
+                    <td>
+                      <p-tableCheckbox [value]="solicitacao"></p-tableCheckbox>
+                    </td>
+                    <td>{{ solicitacao.solicitante.nome }}</td>
+                    <td>{{ solicitacao.endereco }}</td>
+                    <td>{{ solicitacao.residuos.length }}</td>
+                    <td>{{ solicitacao.dtSolicitacao | date: 'dd/MM/yyyy'}}</td>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td [attr.colspan]="5">
+                      Nenhuma ocorrência encontrada.
+                    </td>
                   </tr>
                 </ng-template>
               </p-table>
@@ -34,7 +54,8 @@
       </div>
 
       <div class="p-col-12">
-        <a class="p-button-raised p-button-primary p-mr-3" pButton label="Salvar" [disabled]="f.invalid"></a>
+        <button [disabled]="f.invalid" pButton type="submit" label="Salvar"
+          class="p-button-raised p-button-primary p-mr-3"></button>
         <button routerLink="/gerenciar" pButton type="button" label="Voltar"
           class="p-button-raised p-button-secondary"><a href="javascript:;"></a></button>
       </div>

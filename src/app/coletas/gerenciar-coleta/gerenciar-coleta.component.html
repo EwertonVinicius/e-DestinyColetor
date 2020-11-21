@@ -17,15 +17,17 @@
 
             <div class="p-col-6">
               <label style="display: block">Data Prevista</label>
-              <p-calendar name="dataInicio" [(ngModel)]="filter.dataInicio"></p-calendar>
+              <p-calendar name="dataInicio" dateFormat="dd/mm/yy" [(ngModel)]="filter.dataInicio"></p-calendar>
               <label> até </label>
-              <p-calendar name="dataFim" [(ngModel)]="filter.dataFim"></p-calendar>
+              <p-calendar name="dataFim" dateFormat="dd/mm/yy" [(ngModel)]="filter.dataFim"></p-calendar>
             </div>
 
             <div class="p-col-12">
               <button pButton type="submit" label="Pesquisar" class="p-button-raised p-button-primary p-mr-2"></button>
               <button pButton type="button" label="Limpar Filtro" (click)="limparFiltro()"
                 class="p-button-raised p-button-secondary p-mr-2"></button>
+              <button routerLink="/nova" pButton type="button" label="Nova Coleta"
+                class="p-button-raised p-button-success"><a href="javascript:;"></a></button>
             </div>
           </div>
         </p-panel>
@@ -54,24 +56,26 @@
             <ng-template pTemplate="body" let-coleta>
               <tr>
                 <td>
-                  <a class="p-button-rounded p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
-                    [routerLink]="['/nova', coleta.id]"></a>
-                  <button class="p-button-rounded p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir"
+                  <a class="p-button-rounded  p-button-success p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar"
+                    tooltipPosition="top" [routerLink]="['/nova', coleta.id]"></a>
+                  <button class="p-button-rounded  p-button-danger p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir"
                     tooltipPosition="top" (click)="confirmarExclusao(coleta)"></button>
                   <a class="p-button-rounded p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Coleta"
                     tooltipPosition="top"></a>
-                  <button class="p-button-rounded p-mr-1" pButton icon="pi pi-map-marker" pTooltip="Mapa"
-                    tooltipPosition="top"></button>
                   <button class="p-button-rounded p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
                     tooltipPosition="top"></button>
                 </td>
+
+                <td> {{ coleta.qtdSoliticoes }}</td>
+                <td> {{ coleta.dataPrevista }}</td>
+                <td> {{ coleta.situacao }}</td>
               </tr>
             </ng-template>
 
 
             <ng-template pTemplate="emptymessage">
               <tr>
-                <td [attr.colspan]="4">
+                <td [attr.colspan]="5">
                   Nenhuma ocorrência encontrada.
                 </td>
               </tr>

@@ -38,7 +38,7 @@ export class Residuo {
 export class Coleta {
   id: number;
   coletor: Coletor;
-  dtPrevista: Date;
+  dtPrevistaColeta: Date;
   solicitacoes: Solicitacao[] = [];
 }
 
@@ -52,6 +52,7 @@ export class ColetaFilter {
 }
 
 export class SolicitacaoFilter {
+  idColeta: number;
   pagina = 0;
   itensPorPagina = 5;
 }

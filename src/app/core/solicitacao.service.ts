@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { SolicitacaoFilter } from 'src/app/core/model';
+import { Solicitacao, SolicitacaoFilter } from 'src/app/core/model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,11 @@ export class SolicitacaoService {
     params = params.set('page', filter.pagina.toString());
     params = params.set('size', filter.itensPorPagina.toString());
 
-    return this.http.get(`${this.url}?resumo`, { params })
+    if (filter.idColeta) {
+      params = params.set('idColeta', filter.idColeta.toString());
+    }
+
+    return this.http.get(`${this.url}`, { params })
       .toPromise()
       .then(response => {
         // tslint:disable-next-line: no-string-literal
@@ -31,5 +35,4 @@ export class SolicitacaoService {
         return resultado;
       });
   }
-
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ColetaFilter } from 'src/app/core/model';
+import { Coleta, ColetaFilter } from 'src/app/core/model';
 
 import * as moment from 'moment';
 
@@ -51,5 +51,18 @@ export class ColetaService {
 
   excluir(id: number): Promise<any> {
     return this.http.delete(`${this.url}/${id}`).toPromise().then(() => null);
+  }
+
+
+  adicionar(coleta: Coleta): Promise<Coleta> {
+    return this.http.post<Coleta>(`${this.url}`, coleta).toPromise();
+  }
+
+  atualizar(coleta: Coleta): Promise<Coleta> {
+    return this.http.put<Coleta>(`${this.url}/${coleta.id}`, coleta).toPromise();
+  }
+
+  buscaPorId(id: number): Promise<Coleta> {
+    return this.http.get<Coleta>(`${this.url}/${id}`).toPromise();
   }
 }

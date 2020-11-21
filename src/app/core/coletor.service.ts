@@ -16,4 +16,8 @@ export class ColetorService {
   adicionar(coletor: Coletor): Promise<Coletor> {
     return this.http.post<Coletor>(`${this.url}/novoColetor`, coletor).toPromise();
   }
+
+  buscaPorId(id: number): Promise<Coletor> {
+    return this.http.get<Coletor>(`${this.url}/${id}`).toPromise();
+  }
 }

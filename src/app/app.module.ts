@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +28,10 @@ import { CoreModule } from './core/core.module';
 import { ColetasModule } from './coletas/coletas.module';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from './shared/shared.module';
+
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -63,7 +67,7 @@ import { SharedModule } from './shared/shared.module';
     CalendarModule,
     InputMaskModule,
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-PT' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
