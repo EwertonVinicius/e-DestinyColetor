@@ -20,7 +20,7 @@
                 <ng-template pTemplate="header">
                   <tr>
                     <th>
-                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                      <p-tableHeaderCheckbox [disabled]="disabledCheckbox()"></p-tableHeaderCheckbox>
                     </th>
                     <th>Solicitante</th>
                     <th>Endereço</th>
@@ -31,10 +31,12 @@
                 <ng-template pTemplate="body" let-solicitacao>
                   <tr>
                     <td>
-                      <p-tableCheckbox [value]="solicitacao"></p-tableCheckbox>
+                      <p-tableCheckbox [disabled]="disabledCheckbox()" [value]="solicitacao"></p-tableCheckbox>
                     </td>
                     <td>{{ solicitacao.solicitante.nome }}</td>
-                    <td>{{ solicitacao.endereco }}</td>
+                    <td>
+                      {{ solicitacao.solicitante.endereco.logradouro }}, {{ solicitacao.solicitante.endereco.numero }}
+                    </td>
                     <td>{{ solicitacao.residuos.length }}</td>
                     <td>{{ solicitacao.dtSolicitacao | date: 'dd/MM/yyyy'}}</td>
                   </tr>

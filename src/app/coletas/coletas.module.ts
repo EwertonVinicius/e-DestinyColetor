@@ -16,12 +16,14 @@ import { DialogModule } from 'primeng/dialog';
 
 
 import { AgmCoreModule } from '@agm/core';            // @agm/core
-import { AgmDirectionModule } from 'agm-direction';   // agm-direction
+import { AgmDirectionModule } from 'agm-direction';
+import { AtualizarColetaComponent } from './atualizar-coleta/atualizar-coleta.component';   // agm-direction
 
 @NgModule({
   declarations: [
     NovaColetaComponent,
     GerenciarColetaComponent,
+    AtualizarColetaComponent,
   ],
   exports: [
     NovaColetaComponent,

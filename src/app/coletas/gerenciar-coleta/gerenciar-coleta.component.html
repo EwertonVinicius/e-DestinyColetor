@@ -1,4 +1,4 @@
-<p-dialog header="Percurso de coleta" [(visible)]="display" styleClass="mydialog">
+<p-dialog [modal]="true" header="Percurso de coleta" [(visible)]="display" styleClass="mydialog">
   <agm-map [latitude]="lat" [longitude]="lng">
     <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
   </agm-map>
@@ -52,7 +52,7 @@
             #tabela>
             <ng-template pTemplate="header">
               <tr>
-                <th>Ações</th>
+                <th [attr.colspan]="2">Ações</th>
                 <th>Qtd. Solicitações</th>
                 <th>Data Prevista</th>
                 <th>Situação</th>
@@ -61,18 +61,25 @@
 
             <ng-template pTemplate="body" let-coleta>
               <tr>
-                <td>
-                  <a class="p-button-rounded  p-button-success p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar"
-                    tooltipPosition="top" [routerLink]="['/nova', coleta.id]"></a>
+                <td [attr.colspan]="2">
+                  <button class="p-button-rounded p-button-success p-mr-1" pButton icon="pi pi-pencil" pTooltip="Editar"
+                    tooltipPosition="top" [routerLink]="['/nova', coleta.id]"
+                    [disabled]="disabledEmAndamento(coleta.situacao)"></button>
 
                   <button class="p-button-rounded  p-button-danger p-mr-1" pButton icon="pi pi-trash" pTooltip="Excluir"
-                    tooltipPosition="top" (click)="confirmarExclusao(coleta)"></button>
+                    tooltipPosition="top" (click)="confirmarExclusao(coleta)"
+                    [disabled]="disabledFinalizada(coleta.situacao)"></button>
 
-                  <a class="p-button-rounded p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Percurso"
-                    tooltipPosition="top" (click)="gerarPercurso(coleta.id)"></a>
+                  <button class="p-button-rounded p-mr-1" pButton icon="pi pi-th-large" pTooltip="Gerar Percurso"
+                    (click)="gerarPercurso(coleta.id)" [disabled]="disabledEmAndamento(coleta.situacao)"></button>
 
                   <button class="p-button-rounded p-mr-1" pButton icon="pi pi-eye" pTooltip="Visualizar Percurso"
-                    tooltipPosition="top" (click)="showDialog(coleta.id)"></button>
+                    tooltipPosition="top" (click)="showDialog(coleta.id)"
+                    [disabled]="!disabledEmAndamento(coleta.situacao) || disabledFinalizada(coleta.situacao)"></button>
+
+                  <button class="p-button-rounded p-mr-1" pButton icon="pi pi-refresh" title="Atualizar coleta"
+                    tooltipPosition="top" [routerLink]="['/atualizar', coleta.id]"
+                    [disabled]="!disabledEmAndamento(coleta.situacao) || disabledFinalizada(coleta.situacao)"></button>
                 </td>
 
                 <td> {{ coleta.qtdSoliticoes }}</td>

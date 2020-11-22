@@ -62,6 +62,10 @@ export class ColetaService {
     return this.http.put<Coleta>(`${this.url}/${coleta.id}`, coleta).toPromise();
   }
 
+  finalizar(coleta: Coleta): Promise<Coleta> {
+    return this.http.get<Coleta>(`${this.url}/finalizar/${coleta.id}`).toPromise();
+  }
+
   buscaPorId(id: number): Promise<Coleta> {
     return this.http.get<Coleta>(`${this.url}/${id}`).toPromise();
   }

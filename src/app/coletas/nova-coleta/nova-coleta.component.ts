@@ -53,7 +53,10 @@ export class NovaColetaComponent implements OnInit {
         .catch(erro => this.errorHandler.handle(erro));
       this.pesquisar();
     }
+  }
 
+  disabledCheckbox(): boolean {
+    return this.coleta.situacao !== 'EM_DIGITACAO';
   }
 
   carregarColeta(id: any): void {
@@ -126,7 +129,7 @@ export class NovaColetaComponent implements OnInit {
           this.messageService.add(
             {
               severity: 'success',
-              summary: 'Usuário alterado com sucesso!'
+              summary: 'Coleta alterada com sucesso!'
             });
         }
       ).catch(erro => this.errorHandler.handle(erro));

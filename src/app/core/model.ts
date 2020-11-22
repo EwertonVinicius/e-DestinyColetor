@@ -46,6 +46,7 @@ export class Residuo {
 export class Coleta {
   id: number;
   coletor: Coletor;
+  situacao = 'EM_DIGITACAO';
   dtPrevistaColeta: Date;
   solicitacoes: Solicitacao[] = [];
   percurso: Percurso;

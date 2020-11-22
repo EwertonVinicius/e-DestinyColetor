@@ -92,10 +92,18 @@ export class GerenciarColetaComponent implements OnInit {
 
   gerarPercurso(id: number): void {
     this.coletaService.gerarPercurso(id).then(() => {
+      this.pesquisar();
       this.messageService.add({ severity: 'success', summary: 'Percurso carregado com sucesso!' });
     }).catch(erro => this.errorHandler.handle(erro));
   }
 
+  disabledEmAndamento(situacao: string): boolean {
+    return situacao.toLowerCase() === 'em andamento' || this.disabledFinalizada(situacao);
+  }
+
+  disabledFinalizada(situacao: string): boolean {
+    return situacao.toLowerCase() === 'finalizada';
+  }
 
   showDialog(id: number): void {
     this.display = true;

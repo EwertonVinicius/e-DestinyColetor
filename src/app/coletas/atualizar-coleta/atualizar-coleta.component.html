@@ -1,0 +1,56 @@
+<div class="container">
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="salvar(f)">
+    <div class="p-grid p-mt-5">
+      <div class="p-col-12">
+        <p-panel header="Edição de Coleta">
+          <div class="p-col-12">
+            <p-table styleClass="p-datatable-responsive-demo" [value]="solicitacoes" [responsive]="true" #tabela>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Ações</th>
+                  <th>Solicitante</th>
+                  <th>Endereço</th>
+                  <th>Qtd. Residuos</th>
+                  <th>Data Solicitação</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-solicitacao>
+                <tr>
+                  <td>
+                    <button type="button" class="p-button-rounded p-button-success p-mr-1" pButton icon="pi pi-check"
+                      [disabled]='disabledConfirmar(solicitacao.situacao)'
+                      (click)="confirmaRecebimento(solicitacao)"></button>
+
+                    <button type="button" class="p-button-rounded  p-button-danger p-mr-1" pButton icon="pi pi-times"
+                    (click)="cancelarRecebimento(solicitacao)" [disabled]='disabledConfirmar(solicitacao.situacao)'></button>
+
+                  </td>
+                  <td>{{ solicitacao.solicitante.nome }}</td>
+                  <td>
+                    {{ solicitacao.solicitante.endereco.logradouro }}, {{ solicitacao.solicitante.endereco.numero }}
+                  </td>
+                  <td>{{ solicitacao.residuos.length }}</td>
+                  <td>{{ solicitacao.dtSolicitacao | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td [attr.colspan]="5">
+                    Nenhuma ocorrência encontrada.
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </p-panel>
+      </div>
+      <div class="p-col-12">
+        <button [disabled]="f.invalid" pButton type="submit" label="Salvar"
+          class="p-button-raised p-button-primary p-mr-3"></button>
+        <button routerLink="/gerenciar" pButton type="button" label="Voltar"
+          class="p-button-raised p-button-secondary"><a href="javascript:;"></a></button>
+      </div>
+    </div>
+  </form>
+</div>

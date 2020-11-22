@@ -35,4 +35,13 @@ export class SolicitacaoService {
         return resultado;
       });
   }
+
+  findAllByColeta(id: number): Promise<any> {
+    return this.http.get(`${this.url}/findAllByColeta/${id}`)
+      .toPromise();
+  }
+
+  atualizarPropriedadeSituacao(id: number, situacao: string): Promise<any> {
+    return this.http.put(`${this.url}/${id}/atualizarSituacao`, situacao).toPromise();
+  }
 }
