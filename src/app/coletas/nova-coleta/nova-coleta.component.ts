@@ -100,6 +100,8 @@ export class NovaColetaComponent implements OnInit {
   salvar(form: NgForm): void {
     this.coleta.solicitacoes = this.solicitacoesSelecionadas;
 
+    console.log(this.coleta);
+
     if (this.editando) {
       this.atualizarColeta(form);
     } else {
@@ -133,6 +135,15 @@ export class NovaColetaComponent implements OnInit {
             });
         }
       ).catch(erro => this.errorHandler.handle(erro));
+  }
+
+  obterQuantidadeColeta(solicitacao: any): number {
+    let total = 0;
+    solicitacao.residuos.forEach(item => {
+      total = total + item.quantidade;
+    });
+
+    return total;
   }
 
 }

@@ -29,7 +29,7 @@
                   <td>
                     {{ solicitacao.solicitante.endereco.logradouro }}, {{ solicitacao.solicitante.endereco.numero }}
                   </td>
-                  <td>{{ solicitacao.residuos.length }}</td>
+                  <td>{{ obterQuantidadeColeta(solicitacao) }}</td>
                   <td>{{ solicitacao.dtSolicitacao | date: 'dd/MM/yyyy'}}</td>
                 </tr>
               </ng-template>

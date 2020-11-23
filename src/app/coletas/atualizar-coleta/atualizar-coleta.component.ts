@@ -103,4 +103,13 @@ export class AtualizarColetaComponent implements OnInit {
     }).catch(erro => this.errorHandler.handle(erro));
   }
 
+  obterQuantidadeColeta(solicitacao: any): number {
+    let total = 0;
+    solicitacao.residuos.forEach(item => {
+      total = total + item.quantidade;
+    });
+
+    return total;
+  }
+
 }
